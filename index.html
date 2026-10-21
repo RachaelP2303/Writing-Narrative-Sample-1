@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZC Phase 3 Narrative Writing Task</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #0284c7;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #cbd5e1;
+            --success: #16a34a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .prompt-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .prompt-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 380px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            resize: vertical;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .metric-card {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .metric-card .number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .metric-card .label {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .progress-bar-bg {
+            background-color: #e2e8f0;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar-fill {
+            background-color: var(--accent);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .checklist {
+            margin-top: 16px;
+            font-size: 0.9rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .analysis-box {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .tag-at { background: #dcfce7; color: #166534; }
+        .tag-working { background: #fef9c3; color: #854d0e; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Left Column: Prompt & Visuals -->
+    <div class="panel">
+        <h2>Phase 3 NZC Narrative Writing Task</h2>
+        
+        <div class="student-info">
+            <div>
+                <label for="studentName"><strong>Full Name:</strong></label>
+                <input type="text" id="studentName" placeholder="Enter your first and last name">
+            </div>
+            <div>
+                <label for="studentYear"><strong>Year Level:</strong></label>
+                <input type="number" id="studentYear" min="5" max="8" value="6">
+            </div>
+        </div>
+
+        <img src="https://media.easy-peasy.ai/dd415169-1079-4b0f-a70d-26c65dc6b8a3/318c1a6c-6177-4347-831a-9318a876fb5e_medium.webp" alt="Mysterious Portal in Forest" class="prompt-img">
+
+        <div class="prompt-box">
+            <strong>Task Prompt:</strong>
+            <p>Look closely at the scene above. Write a narrative focused on <em>this exact moment</em>. Describe what is happening, what can be heard or felt, and the choices being faced.</p>
+        </div>
+
+        <h3>Writing Conventions & Requirements</h3>
+        <div class="checklist">
+            <div class="checklist-item">🎯 <strong>Target Word Count:</strong> 300 – 350 words</div>
+            <div class="checklist-item">✍️ <strong>Paragraphing:</strong> Organize ideas into cohesive paragraphs</div>
+            <div class="checklist-item">🔗 <strong>Sentence Variety:</strong> Use simple, compound, and complex sentences</div>
+            <div class="checklist-item">👁️ <strong>Sensory Details:</strong> Describe sight, sound, and atmosphere</div>
+            <div class="checklist-item">🔤 <strong>Punctuation:</strong> Accurate speech marks, commas, and capitals</div>
+        </div>
+    </div>
+
+    <!-- Right Column: Student Writing Space & Live Analytics -->
+    <div class="panel">
+        <h2>Your Story</h2>
+
+        <div class="progress-bar-bg">
+            <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+
+        <textarea id="storyInput" placeholder="Begin typing your story here..." oninput="updateMetrics()"></textarea>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="number" id="wordCount">0</div>
+                <div class="label">Words (300-350)</div>
+            </div>
+            <div class="metric-card">
+                <div class="number" id="sentenceCount">0</div>
+                <div class="label">Sentences</div>
+            </div>
+            <div class="metric-card">
+                <div class="number" id="paragraphCount">0</div>
+                <div class="label">Paragraphs</div>
+            </div>
+        </div>
+
+        <div class="analysis-box">
+            <h3>Live Phase 3 Diagnostic Indicator</h3>
+            <p id="curriculumStatus">Start typing to generate curriculum alignment analysis...</p>
+        </div>
+
+        <button class="submit-btn" onclick="submitTask()">Complete & Submit Writing Task</button>
+    </div>
+</div>
+
+<script>
+    // GOOGLE APPS SCRIPT WEB APP URL INTEGRATED:
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3wTPn10TjdclHCugzZPvGl0rHfYo4KiRYN0Ep-Boiy_2G6QD073gxsF-8BaAR71jw/exec";
+
+    function updateMetrics() {
+        const text = document.getElementById('storyInput').value.trim();
+        
+        // Word Count
+        const words = text ? text.split(/\s+/).filter(w => w.length > 0) : [];
+        const wordCount = words.length;
+        document.getElementById('wordCount').innerText = wordCount;
+
+        // Sentence Count
+        const sentences = text ? text.split(/[.!?]+/).filter(s => s.trim().length > 0) : [];
+        const sentenceCount = sentences.length;
+        document.getElementById('sentenceCount').innerText = sentenceCount;
+
+        // Paragraph Count
+        const paragraphs = text ? text.split(/\n+/).filter(p => p.trim().length > 0) : [];
+        const paragraphCount = paragraphs.length;
+        document.getElementById('paragraphCount').innerText = paragraphCount;
+
+        // Update Progress Bar (Target range 300 - 350)
+        const progressPercentage = Math.min((wordCount / 350) * 100, 100);
+        const progressBar = document.getElementById('progressBar');
+        progressBar.style.width = progressPercentage + '%';
+
+        if (wordCount >= 300 && wordCount <= 350) {
+            progressBar.style.backgroundColor = 'var(--success)';
+        } else {
+            progressBar.style.backgroundColor = 'var(--accent)';
+        }
+
+        // Live Diagnostic Analysis (Phase 3 NZC Framework)
+        analyzePhase3(wordCount, sentenceCount, paragraphCount, sentences);
+    }
+
+    function analyzePhase3(words, sentences, paragraphs, sentenceArray) {
+        const statusBox = document.getElementById('curriculumStatus');
+
+        if (words === 0) {
+            statusBox.innerHTML = "Start typing to generate curriculum alignment analysis...";
+            return;
+        }
+
+        let feedback = [];
+        let statusTag = '';
+
+        if (words < 150) {
+            statusTag = '<span class="tag tag-working">Working Towards Phase 3</span>';
+            feedback.push("Developing text stamina. Focus on expanding descriptions and setting.");
+        } else if (words >= 150 && words < 300) {
+            statusTag = '<span class="tag tag-working">Consolidating Phase 3</span>';
+            feedback.push("Good story progression. Aim to expand detail to reach the 300–350 word benchmark.");
+        } else if (words >= 300 && words <= 380) {
+            statusTag = '<span class="tag tag-at">At Phase 3 Expectation</span>';
+            feedback.push("Meets target word length for sustained Phase 3 narrative writing.");
+        } else {
+            statusTag = '<span class="tag tag-working">Phase 3 (Length Exceeded)</span>';
+            feedback.push("Sustained writing effort. Focus on editing down to maintain precise control under 350 words.");
+        }
+
+        if (paragraphs >= 3) {
+            feedback.push("Effective paragraphing observed (organising ideas into cohesive events).");
+        } else {
+            feedback.push("Consider breaking story into clear paragraphs (Beginning/Setting, Rising Moment, Cliffhanger).");
+        }
+
+        const text = document.getElementById('storyInput').value;
+        const complexMarkers = text.match(/\b(because|although|while|since|as|when|if|where|which|who)\b/gi);
+        if (complexMarkers && complexMarkers.length >= 3) {
+            feedback.push("Demonstrates complex sentence structures using subordinating conjunctions.");
+        } else {
+            feedback.push("Try adding complex sentences using connectives like <em>because, although, when, while</em>.");
+        }
+
+        statusBox.innerHTML = `${statusTag}<br><br>${feedback.join('<br>')}`;
+    }
+
+    // Submit Student Data to Google Sheet
+    async function submitTask() {
+        const name = document.getElementById('studentName').value;
+        const year = document.getElementById('studentYear').value;
+        const story = document.getElementById('storyInput').value;
+        const wordCount = document.getElementById('wordCount').innerText;
+        const sentenceCount = document.getElementById('sentenceCount').innerText;
+        const paragraphCount = document.getElementById('paragraphCount').innerText;
+        const statusText = document.getElementById('curriculumStatus').innerText;
+
+        if (!name) {
+            alert('Please enter your full name before submitting.');
+            return;
+        }
+
+        if (story.length < 50) {
+            alert('Please write a bit more before submitting.');
+            return;
+        }
+
+        const payload = {
+            studentName: name,
+            studentYear: year,
+            wordCount: wordCount,
+            sentenceCount: sentenceCount,
+            paragraphCount: paragraphCount,
+            curriculumStatus: statusText,
+            storyText: story
+        };
+
+        try {
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/
