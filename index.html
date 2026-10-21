@@ -86,7 +86,7 @@
 
         textarea {
             width: 100%;
-            height: 380px;
+            height: 250px;
             padding: 16px;
             border: 1px solid var(--border);
             border-radius: 8px;
@@ -99,7 +99,7 @@
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin-top: 16px;
             margin-bottom: 16px;
@@ -150,6 +150,28 @@
             margin-bottom: 6px;
         }
 
+        .preview-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fafafa;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            min-height: 150px;
+            white-space: pre-wrap;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+
+        .preview-header {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .submit-btn {
             background-color: var(--primary);
             color: white;
@@ -160,45 +182,25 @@
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            margin-top: 16px;
+            margin-top: 20px;
         }
 
         .submit-btn:hover {
             background-color: #1d4ed8;
         }
-
-        .analysis-box {
-            margin-top: 16px;
-            padding: 16px;
-            background: #f8fafc;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-right: 6px;
-        }
-
-        .tag-at { background: #dcfce7; color: #166534; }
-        .tag-working { background: #fef9c3; color: #854d0e; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Left Column: Prompt & Visuals -->
+    <!-- Left Column: Prompt & Conventions -->
     <div class="panel">
         <h2>Phase 3 NZC Narrative Writing Task</h2>
         
         <div class="student-info">
             <div>
                 <label for="studentName"><strong>Full Name:</strong></label>
-                <input type="text" id="studentName" placeholder="Enter your first and last name">
+                <input type="text" id="studentName" placeholder="Enter your full name">
             </div>
             <div>
                 <label for="studentYear"><strong>Year Level:</strong></label>
@@ -223,9 +225,9 @@
         </div>
     </div>
 
-    <!-- Right Column: Student Writing Space & Live Analytics -->
+    <!-- Right Column: Student Workspace, Metrics & Live Story Preview -->
     <div class="panel">
-        <h2>Your Story</h2>
+        <h2>Your Story Workspace</h2>
 
         <div class="progress-bar-bg">
             <div id="progressBar" class="progress-bar-fill"></div>
@@ -236,50 +238,39 @@
         <div class="metrics-grid">
             <div class="metric-card">
                 <div class="number" id="wordCount">0</div>
-                <div class="label">Words (300-350)</div>
+                <div class="label">Word Count (Goal: 300-350)</div>
             </div>
             <div class="metric-card">
                 <div class="number" id="sentenceCount">0</div>
-                <div class="label">Sentences</div>
-            </div>
-            <div class="metric-card">
-                <div class="number" id="paragraphCount">0</div>
-                <div class="label">Paragraphs</div>
+                <div class="label">Sentence Count</div>
             </div>
         </div>
 
-        <div class="analysis-box">
-            <h3>Live Phase 3 Diagnostic Indicator</h3>
-            <p id="curriculumStatus">Start typing to generate curriculum alignment analysis...</p>
-        </div>
+        <div class="preview-header">Live Story Preview:</div>
+        <div id="storyPreview" class="preview-box"><em>Your story preview will appear here as you type...</em></div>
 
         <button class="submit-btn" onclick="submitTask()">Complete & Submit Writing Task</button>
     </div>
 </div>
 
 <script>
-    // GOOGLE APPS SCRIPT WEB APP URL INTEGRATED:
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3wTPn10TjdclHCugzZPvGl0rHfYo4KiRYN0Ep-Boiy_2G6QD073gxsF-8BaAR71jw/exec";
 
     function updateMetrics() {
-        const text = document.getElementById('storyInput').value.trim();
+        const text = document.getElementById('storyInput').value;
+        const trimmedText = text.trim();
         
-        // Word Count
-        const words = text ? text.split(/\s+/).filter(w => w.length > 0) : [];
+        // 1. Calculate Word Count
+        const words = trimmedText ? trimmedText.split(/\s+/).filter(w => w.length > 0) : [];
         const wordCount = words.length;
         document.getElementById('wordCount').innerText = wordCount;
 
-        // Sentence Count
-        const sentences = text ? text.split(/[.!?]+/).filter(s => s.trim().length > 0) : [];
+        // 2. Calculate Sentence Count
+        const sentences = trimmedText ? trimmedText.split(/[.!?]+/).filter(s => s.trim().length > 0) : [];
         const sentenceCount = sentences.length;
         document.getElementById('sentenceCount').innerText = sentenceCount;
 
-        // Paragraph Count
-        const paragraphs = text ? text.split(/\n+/).filter(p => p.trim().length > 0) : [];
-        const paragraphCount = paragraphs.length;
-        document.getElementById('paragraphCount').innerText = paragraphCount;
-
-        // Update Progress Bar (Target range 300 - 350)
+        // 3. Update Progress Bar (300-350 words target)
         const progressPercentage = Math.min((wordCount / 350) * 100, 100);
         const progressBar = document.getElementById('progressBar');
         progressBar.style.width = progressPercentage + '%';
@@ -290,61 +281,22 @@
             progressBar.style.backgroundColor = 'var(--accent)';
         }
 
-        // Live Diagnostic Analysis (Phase 3 NZC Framework)
-        analyzePhase3(wordCount, sentenceCount, paragraphCount, sentences);
+        // 4. Update Live Story Display Below
+        const previewBox = document.getElementById('storyPreview');
+        if (trimmedText.length > 0) {
+            previewBox.innerText = text;
+        } else {
+            previewBox.innerHTML = '<em>Your story preview will appear here as you type...</em>';
+        }
     }
 
-    function analyzePhase3(words, sentences, paragraphs, sentenceArray) {
-        const statusBox = document.getElementById('curriculumStatus');
-
-        if (words === 0) {
-            statusBox.innerHTML = "Start typing to generate curriculum alignment analysis...";
-            return;
-        }
-
-        let feedback = [];
-        let statusTag = '';
-
-        if (words < 150) {
-            statusTag = '<span class="tag tag-working">Working Towards Phase 3</span>';
-            feedback.push("Developing text stamina. Focus on expanding descriptions and setting.");
-        } else if (words >= 150 && words < 300) {
-            statusTag = '<span class="tag tag-working">Consolidating Phase 3</span>';
-            feedback.push("Good story progression. Aim to expand detail to reach the 300–350 word benchmark.");
-        } else if (words >= 300 && words <= 380) {
-            statusTag = '<span class="tag tag-at">At Phase 3 Expectation</span>';
-            feedback.push("Meets target word length for sustained Phase 3 narrative writing.");
-        } else {
-            statusTag = '<span class="tag tag-working">Phase 3 (Length Exceeded)</span>';
-            feedback.push("Sustained writing effort. Focus on editing down to maintain precise control under 350 words.");
-        }
-
-        if (paragraphs >= 3) {
-            feedback.push("Effective paragraphing observed (organising ideas into cohesive events).");
-        } else {
-            feedback.push("Consider breaking story into clear paragraphs (Beginning/Setting, Rising Moment, Cliffhanger).");
-        }
-
-        const text = document.getElementById('storyInput').value;
-        const complexMarkers = text.match(/\b(because|although|while|since|as|when|if|where|which|who)\b/gi);
-        if (complexMarkers && complexMarkers.length >= 3) {
-            feedback.push("Demonstrates complex sentence structures using subordinating conjunctions.");
-        } else {
-            feedback.push("Try adding complex sentences using connectives like <em>because, although, when, while</em>.");
-        }
-
-        statusBox.innerHTML = `${statusTag}<br><br>${feedback.join('<br>')}`;
-    }
-
-    // Submit Student Data to Google Sheet
+    // Send Student Data to Google Sheet
     async function submitTask() {
         const name = document.getElementById('studentName').value;
         const year = document.getElementById('studentYear').value;
         const story = document.getElementById('storyInput').value;
         const wordCount = document.getElementById('wordCount').innerText;
         const sentenceCount = document.getElementById('sentenceCount').innerText;
-        const paragraphCount = document.getElementById('paragraphCount').innerText;
-        const statusText = document.getElementById('curriculumStatus').innerText;
 
         if (!name) {
             alert('Please enter your full name before submitting.');
@@ -361,8 +313,8 @@
             studentYear: year,
             wordCount: wordCount,
             sentenceCount: sentenceCount,
-            paragraphCount: paragraphCount,
-            curriculumStatus: statusText,
+            paragraphCount: 0,
+            curriculumStatus: "N/A",
             storyText: story
         };
 
@@ -370,4 +322,16 @@
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: "POST",
                 mode: "no-cors",
-                headers: { "Content-Type": "application/
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            alert(`Thank you ${name}! Your story (${wordCount} words) has been submitted.`);
+        } catch (err) {
+            alert('There was an error saving your submission. Please try again.');
+        }
+    }
+</script>
+
+</body>
+</html>
