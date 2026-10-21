@@ -23,16 +23,22 @@
             padding: 20px;
         }
 
-        .container {
+        .main-wrapper {
             max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
         @media (max-width: 900px) {
-            .container {
+            .grid-container {
                 grid-template-columns: 1fr;
             }
         }
@@ -68,7 +74,7 @@
 
         .prompt-img {
             width: 100%;
-            height: 280px;
+            height: 260px;
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 12px;
@@ -86,7 +92,7 @@
 
         textarea {
             width: 100%;
-            height: 250px;
+            height: 280px;
             padding: 16px;
             border: 1px solid var(--border);
             border-radius: 8px;
@@ -101,19 +107,19 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            margin-top: 16px;
-            margin-bottom: 16px;
+            margin-top: 14px;
+            margin-bottom: 14px;
         }
 
         .metric-card {
             background: #f1f5f9;
-            padding: 12px;
+            padding: 10px;
             border-radius: 6px;
             text-align: center;
         }
 
         .metric-card .number {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: var(--primary);
         }
@@ -123,12 +129,47 @@
             color: #64748b;
         }
 
+        .tracker-section {
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 14px;
+        }
+
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .tracker-item {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tracker-badge {
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
         .progress-bar-bg {
             background-color: #e2e8f0;
             height: 12px;
             border-radius: 6px;
             overflow: hidden;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .progress-bar-fill {
@@ -139,7 +180,7 @@
         }
 
         .checklist {
-            margin-top: 16px;
+            margin-top: 12px;
             font-size: 0.9rem;
         }
 
@@ -150,24 +191,32 @@
             margin-bottom: 6px;
         }
 
-        .preview-box {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #fafafa;
-            border: 1px dashed var(--border);
-            border-radius: 8px;
-            min-height: 150px;
+        .full-width-preview {
+            margin-top: 10px;
+            padding: 24px;
+            background-color: #ffffff;
+            border: 2px dashed var(--accent);
+            border-radius: 12px;
+            min-height: 180px;
             white-space: pre-wrap;
-            line-height: 1.7;
-            font-size: 1.05rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
             color: var(--text);
         }
 
-        .preview-header {
+        .preview-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .preview-title {
             font-weight: bold;
             color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -182,7 +231,7 @@
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .submit-btn:hover {
@@ -192,65 +241,105 @@
 </head>
 <body>
 
-<div class="container">
-    <!-- Left Column: Prompt & Conventions -->
-    <div class="panel">
-        <h2>Phase 3 NZC Narrative Writing Task</h2>
+<div class="main-wrapper">
+
+    <!-- Top Grid: Task Info on Left, Writing Box on Right -->
+    <div class="grid-container">
         
-        <div class="student-info">
-            <div>
-                <label for="studentName"><strong>Full Name:</strong></label>
-                <input type="text" id="studentName" placeholder="Enter your full name">
+        <!-- Left Panel: Prompt & Targets -->
+        <div class="panel">
+            <h2>Phase 3 NZC Narrative Writing Task</h2>
+            
+            <div class="student-info">
+                <div>
+                    <label for="studentName"><strong>Full Name:</strong></label>
+                    <input type="text" id="studentName" placeholder="Enter your full name">
+                </div>
+                <div>
+                    <label for="studentYear"><strong>Year Level:</strong></label>
+                    <input type="number" id="studentYear" min="5" max="8" value="6">
+                </div>
             </div>
-            <div>
-                <label for="studentYear"><strong>Year Level:</strong></label>
-                <input type="number" id="studentYear" min="5" max="8" value="6">
+
+            <img src="https://media.easy-peasy.ai/dd415169-1079-4b0f-a70d-26c65dc6b8a3/318c1a6c-6177-4347-831a-9318a876fb5e_medium.webp" alt="Mysterious Portal in Forest" class="prompt-img">
+
+            <div class="prompt-box">
+                <strong>Task Prompt:</strong>
+                <p>Look closely at the scene above. Write a narrative focused on <em>this exact moment</em>. Describe what is happening, what can be heard or felt, and the choices being faced.</p>
+            </div>
+
+            <h3>Targets & Writing Conventions</h3>
+            <div class="checklist">
+                <div class="checklist-item">🎯 <strong>Target Word Count:</strong> 300 – 350 words</div>
+                <div class="checklist-item">✍️ <strong>Paragraphing:</strong> Organize ideas into clear paragraphs</div>
+                <div class="checklist-item">🔤 <strong>Proofread:</strong> Check red squiggly lines for spelling & punctuation</div>
+                <div class="checklist-item">🌟 <strong>Language Features:</strong> Use varied sentence starters & imagery</div>
             </div>
         </div>
 
-        <img src="https://media.easy-peasy.ai/dd415169-1079-4b0f-a70d-26c65dc6b8a3/318c1a6c-6177-4347-831a-9318a876fb5e_medium.webp" alt="Mysterious Portal in Forest" class="prompt-img">
+        <!-- Right Panel: Student Input & Real-Time Trackers -->
+        <div class="panel">
+            <h2>Writing Workspace</h2>
 
-        <div class="prompt-box">
-            <strong>Task Prompt:</strong>
-            <p>Look closely at the scene above. Write a narrative focused on <em>this exact moment</em>. Describe what is happening, what can be heard or felt, and the choices being faced.</p>
+            <div class="progress-bar-bg">
+                <div id="progressBar" class="progress-bar-fill"></div>
+            </div>
+
+            <!-- Textarea with Native Spellcheck Enabled -->
+            <textarea id="storyInput" spellcheck="true" placeholder="Begin typing your story here... (Red squiggly lines will mark spelling errors)" oninput="updateMetrics()"></textarea>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="number" id="wordCount">0</div>
+                    <div class="label">Words (Goal: 300-350)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="number" id="sentenceCount">0</div>
+                    <div class="label">Sentence Count</div>
+                </div>
+            </div>
+
+            <!-- Sentence Variety & Language Feature Live Counters -->
+            <div class="tracker-section">
+                <strong>Phase 3 Sentence Starters & Craft Tracker:</strong>
+                <div class="tracker-grid">
+                    <div class="tracker-item">
+                        <span>Adverb Start (-ly)</span>
+                        <span id="adverbCount" class="tracker-badge">0</span>
+                    </div>
+                    <div class="tracker-item">
+                        <span>'-Ing' Start</span>
+                        <span id="ingCount" class="tracker-badge">0</span>
+                    </div>
+                    <div class="tracker-item">
+                        <span>'-Ed' Start</span>
+                        <span id="edCount" class="tracker-badge">0</span>
+                    </div>
+                    <div class="tracker-item">
+                        <span>'W' / Connective Start</span>
+                        <span id="wCount" class="tracker-badge">0</span>
+                    </div>
+                    <div class="tracker-item" style="grid-column: span 2;">
+                        <span>Figurative Language (Similes/Imagery)</span>
+                        <span id="figurativeCount" class="tracker-badge">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="submitTask()">Complete & Submit Writing Task</button>
         </div>
 
-        <h3>Writing Conventions & Requirements</h3>
-        <div class="checklist">
-            <div class="checklist-item">🎯 <strong>Target Word Count:</strong> 300 – 350 words</div>
-            <div class="checklist-item">✍️ <strong>Paragraphing:</strong> Organize ideas into cohesive paragraphs</div>
-            <div class="checklist-item">🔗 <strong>Sentence Variety:</strong> Use simple, compound, and complex sentences</div>
-            <div class="checklist-item">👁️ <strong>Sensory Details:</strong> Describe sight, sound, and atmosphere</div>
-            <div class="checklist-item">🔤 <strong>Punctuation:</strong> Accurate speech marks, commas, and capitals</div>
-        </div>
     </div>
 
-    <!-- Right Column: Student Workspace, Metrics & Live Story Preview -->
+    <!-- Bottom Full-Width Section: Live Draft Preview -->
     <div class="panel">
-        <h2>Your Story Workspace</h2>
-
-        <div class="progress-bar-bg">
-            <div id="progressBar" class="progress-bar-fill"></div>
+        <div class="preview-header-bar">
+            <span class="preview-title">📖 Full Story Draft Preview</span>
+            <span style="font-size: 0.9rem; color: #64748b;">(Appears below targets and workspace as you type)</span>
         </div>
-
-        <textarea id="storyInput" placeholder="Begin typing your story here..." oninput="updateMetrics()"></textarea>
-
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="number" id="wordCount">0</div>
-                <div class="label">Word Count (Goal: 300-350)</div>
-            </div>
-            <div class="metric-card">
-                <div class="number" id="sentenceCount">0</div>
-                <div class="label">Sentence Count</div>
-            </div>
-        </div>
-
-        <div class="preview-header">Live Story Preview:</div>
-        <div id="storyPreview" class="preview-box"><em>Your story preview will appear here as you type...</em></div>
-
-        <button class="submit-btn" onclick="submitTask()">Complete & Submit Writing Task</button>
+        <div id="storyPreview" class="full-width-preview"><em>Your story preview will appear here in full width as you type...</em></div>
     </div>
+
 </div>
 
 <script>
@@ -265,32 +354,65 @@
         const wordCount = words.length;
         document.getElementById('wordCount').innerText = wordCount;
 
-        // 2. Calculate Sentence Count
+        // 2. Calculate Sentence Count & Array
         const sentences = trimmedText ? trimmedText.split(/[.!?]+/).filter(s => s.trim().length > 0) : [];
         const sentenceCount = sentences.length;
         document.getElementById('sentenceCount').innerText = sentenceCount;
 
-        // 3. Update Progress Bar (300-350 words target)
+        // 3. Update Progress Bar
         const progressPercentage = Math.min((wordCount / 350) * 100, 100);
         const progressBar = document.getElementById('progressBar');
         progressBar.style.width = progressPercentage + '%';
-
         if (wordCount >= 300 && wordCount <= 350) {
             progressBar.style.backgroundColor = 'var(--success)';
         } else {
             progressBar.style.backgroundColor = 'var(--accent)';
         }
 
-        // 4. Update Live Story Display Below
+        // 4. Analyze Phase 3 Sentence Starters & Figurative Language
+        let adverbStarters = 0;
+        let ingStarters = 0;
+        let edStarters = 0;
+        let wStarters = 0;
+
+        sentences.forEach(sentence => {
+            const cleanSentence = sentence.trim();
+            const firstWord = cleanSentence.split(/\s+/)[0] ? cleanSentence.split(/\s+/)[0].replace(/[^a-zA-Z]/g, '') : '';
+            
+            if (firstWord) {
+                // Adverb Starter (-ly)
+                if (firstWord.toLowerCase().endsWith('ly')) adverbStarters++;
+                
+                // -Ing Starter
+                if (firstWord.toLowerCase().endsWith('ing')) ingStarters++;
+                
+                // -Ed Starter
+                if (firstWord.toLowerCase().endsWith('ed')) edStarters++;
+                
+                // 'W' Starters (When, While, With, What, Where, Without, etc.)
+                if (firstWord.toLowerCase().startsWith('w')) wStarters++;
+            }
+        });
+
+        // Figurative Language Check (Simile heuristic: "like a", "as a", "as ... as")
+        const similes = text.match(/\b(like a|like the|as \w+ as|as a)\b/gi) || [];
+        
+        document.getElementById('adverbCount').innerText = adverbStarters;
+        document.getElementById('ingCount').innerText = ingStarters;
+        document.getElementById('edCount').innerText = edStarters;
+        document.getElementById('wCount').innerText = wStarters;
+        document.getElementById('figurativeCount').innerText = similes.length;
+
+        // 5. Update Full-Width Live Story Preview Below
         const previewBox = document.getElementById('storyPreview');
         if (trimmedText.length > 0) {
             previewBox.innerText = text;
         } else {
-            previewBox.innerHTML = '<em>Your story preview will appear here as you type...</em>';
+            previewBox.innerHTML = '<em>Your story preview will appear here in full width as you type...</em>';
         }
     }
 
-    // Send Student Data to Google Sheet
+    // Submit Student Data to Google Sheet
     async function submitTask() {
         const name = document.getElementById('studentName').value;
         const year = document.getElementById('studentYear').value;
@@ -314,7 +436,7 @@
             wordCount: wordCount,
             sentenceCount: sentenceCount,
             paragraphCount: 0,
-            curriculumStatus: "N/A",
+            curriculumStatus: "Phase 3 Submitted",
             storyText: story
         };
 
@@ -326,7 +448,7 @@
                 body: JSON.stringify(payload)
             });
 
-            alert(`Thank you ${name}! Your story (${wordCount} words) has been submitted.`);
+            alert(`Thank you ${name}! Your story (${wordCount} words) has been saved.`);
         } catch (err) {
             alert('There was an error saving your submission. Please try again.');
         }
